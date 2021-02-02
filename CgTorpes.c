@@ -84,8 +84,8 @@ int main(int argc, char* argv[]){
     ft= fopen("_tmp.tap", "wb+");
     fwrite(in+1, 1, length-2, ft);
     fclose(ft);
-#ifdef __linux__ 
-    sprintf(command, "./torpes 44100 %s tmp.%s %02x 100 %d _tmp.tap > nul\n",
+#ifndef _WIN32
+    sprintf(command, "./torpes 44100 %s tmp.%s %02x 100 %d _tmp.tap > /dev/null\n",
             channel_type-1 ? (channel_type-2?"stereoinv":"stereo") : "mono",
             ext, in[0], in[0] ? 2000 : 200);
     if( system(command) )
